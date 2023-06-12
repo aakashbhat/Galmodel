@@ -1,0 +1,63 @@
+[[Fit Statistics]]
+    # fitting method   = ampgo, with L-BFGS-B as local solver
+    # function evals   = 1792
+    # data points      = 228
+    # variables        = 7
+    chi-square         = 84.6880391
+    reduced chi-square = 0.38320380
+    Akaike info crit   = -211.804646
+    Bayesian info crit = -187.799226
+##  Warning: uncertainties could not be estimated:
+[[Variables]]
+    mb:   482.755401 +/- 7.11875459 (1.47%) (init = 409)
+    bb:   0.20999363 +/- 0.00514602 (2.45%) (init = 0.23)
+    md:   2852.87273 +/- 180.012254 (6.31%) (init = 2856)
+    ad:   3.68688203 +/- 0.30101980 (8.16%) (init = 4.22)
+    bd:   0.40381783 +/- 0.35307626 (87.43%) (init = 0.292)
+    mh:   1015.06034 +/-        nan (nan%) (init = 1018)
+    lam:  200 (fixed)
+    ah:   3.19218570 +/-        nan (nan%) (init = 2.562)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(ad, bd) = -0.995
+    C(mb, bb) = 0.828
+    C(md, bd) = 0.495
+    C(mb, ad) = 0.487
+    C(mb, md) = 0.428
+    C(mb, bd) = 0.330
+    C(bb, md) = 0.220
+    C(bb, ad) = 0.183
+    C(md, ad) = -0.169
+    C(bb, bd) = 0.153[[Fit Statistics]]
+    # fitting method   = emcee
+    # function evals   = 500000
+    # data points      = 228
+    # variables        = 7
+    chi-square         = 71.7915535
+    reduced chi-square = 0.32484866
+    Akaike info crit   = -249.471966
+    Bayesian info crit = -225.466547
+[[Variables]]
+    mb:   361.153610 +/- 55.2525607 (15.30%) (init = 482.7554)
+    bb:   0.18851342 +/- 0.01403727 (7.45%) (init = 0.2099936)
+    md:   2832.03005 +/- 308.060768 (10.88%) (init = 2852.873)
+    ad:   4.15824130 +/- 0.43666721 (10.50%) (init = 3.686882)
+    bd:   0.53607259 +/- 0.39090250 (72.92%) (init = 0.4038178)
+    mh:   103.904867 +/- 150.591283 (144.93%) (init = 1015.06)
+    lam:  200 (fixed)
+    ah:   0.36626494 +/- 0.49836481 (136.07%) (init = 3.192186)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah) = 0.996
+    C(mb, ah) = 0.793
+    C(ad, bd) = -0.783
+    C(mb, mh) = 0.762
+    C(mb, bb) = 0.635
+    C(bb, ah) = 0.515
+    C(bb, mh) = 0.499
+    C(ad, ah) = -0.448
+    C(ad, mh) = -0.443
+    C(mb, ad) = -0.392
+    C(bb, md) = 0.338
+    C(md, bd) = 0.298
+    C(bb, ad) = -0.208
+    C(mb, md) = 0.177
+    C(md, ah) = 0.103  mb      -79.1747 -44.5890 361.1536  65.9322 139.6243  bb       -0.0236  -0.0124   0.1885   0.0157   0.0308  md      -596.4305 -303.2662 2832.0301 312.9698 598.9325  ad       -1.0504  -0.4791   4.1582   0.3944   0.6794  bd       -0.5077  -0.3433   0.5361   0.4387   0.9367  mh      -97.8205 -77.5820 103.9049 223.6723 1251.7236

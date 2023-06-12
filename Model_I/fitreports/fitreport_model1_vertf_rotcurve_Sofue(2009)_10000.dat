@@ -1,0 +1,142 @@
+[[Fit Statistics]]
+    # fitting method   = ampgo, with L-BFGS-B as local solver
+    # function evals   = 35784
+    # data points      = 228
+    # variables        = 8
+    chi-square         = 19.0945611
+    reduced chi-square = 0.08679346
+    Akaike info crit   = -549.426797
+    Bayesian info crit = -521.992032
+[[Variables]]
+    mb:   383.280057 +/- 82.0833167 (21.42%) (init = 409)
+    bb:   0.21598500 +/- 0.02980074 (13.80%) (init = 0.23)
+    md:   3968.12680 +/- 509.518728 (12.84%) (init = 2856)
+    ad:   4.12906977 +/- 1.05853584 (25.64%) (init = 4.22)
+    bd:   1.04320409 +/- 0.18119418 (17.37%) (init = 0.292)
+    mh:   1252.52194 +/- 3253.96524 (259.79%) (init = 1018)
+    ah:   4.41767616 +/- 10.0716395 (227.99%) (init = 2.562)
+    lam:  67.9040447 +/- 24.3877925 (35.92%) (init = 100)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah)  = 1.000
+    C(ad, ah)  = -0.995
+    C(ad, mh)  = -0.995
+    C(mb, ah)  = 0.993
+    C(mb, mh)  = 0.992
+    C(mb, bb)  = 0.991
+    C(mb, ad)  = -0.986
+    C(bb, ah)  = 0.980
+    C(bb, mh)  = 0.979
+    C(bb, ad)  = -0.971
+    C(mb, md)  = 0.966
+    C(md, ah)  = 0.958
+    C(bb, md)  = 0.956
+    C(md, ad)  = -0.954
+    C(md, mh)  = 0.953
+    C(md, bd)  = 0.841
+    C(ad, bd)  = -0.815
+    C(mb, bd)  = 0.784
+    C(bb, bd)  = 0.777
+    C(bd, ah)  = 0.770
+    C(bd, mh)  = 0.765
+    C(mh, lam) = -0.553
+    C(ah, lam) = -0.552
+    C(ad, lam) = 0.548
+    C(mb, lam) = -0.544
+    C(bb, lam) = -0.536
+    C(md, lam) = -0.505
+    C(bd, lam) = -0.396[[Fit Statistics]]
+    # fitting method   = emcee
+    # function evals   = 2000000
+    # data points      = 228
+    # variables        = 8
+    chi-square         = 28.4286371
+    reduced chi-square = 0.12922108
+    Akaike info crit   = -458.684290
+    Bayesian info crit = -431.249525
+[[Variables]]
+    mb:   409.871644 +/- 38.7332304 (9.45%) (init = 383.2801)
+    bb:   0.22669928 +/- 0.02207184 (9.74%) (init = 0.215985)
+    md:   4467.27986 +/- 550.183277 (12.32%) (init = 3968.127)
+    ad:   3.84797096 +/- 0.43734273 (11.37%) (init = 4.12907)
+    bd:   1.26877804 +/- 0.41768432 (32.92%) (init = 1.043204)
+    mh:   3543.79426 +/- 2496.38611 (70.44%) (init = 1252.522)
+    ah:   11.2385697 +/- 6.46513786 (57.53%) (init = 4.417676)
+    lam:  110.306721 +/- 58.2074332 (52.77%) (init = 67.90404)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah) = 0.957
+    C(ad, bd) = -0.803
+    C(mb, bb) = 0.800
+    C(md, ah) = 0.579
+    C(mb, md) = 0.544
+    C(md, bd) = 0.532
+    C(mb, ah) = 0.494
+    C(ad, ah) = -0.456
+    C(ad, mh) = -0.419
+    C(bb, md) = 0.391
+    C(mb, mh) = 0.385
+    C(md, mh) = 0.367
+    C(bb, ah) = 0.324
+    C(md, ad) = -0.290
+    C(mb, bd) = 0.288
+    C(bd, ah) = 0.261
+    C(bb, mh) = 0.242
+    C(bb, bd) = 0.219
+    C(mb, ad) = -0.176
+    C(bd, mh) = 0.150
+  ah       -9.6916  -6.7966  11.2386   6.1355   8.3096
+ 19.0241   7.5703  19.9995
+  mb      -91.4307 -39.4985 409.8716  37.9891  73.0264
+412.5803 372.7459 449.9322
+  bd       -0.9285  -0.4084   1.2688   0.4273   0.9051
+  1.2905   0.8587   1.6943
+  ad       -0.9388  -0.4302   3.8480   0.4447   0.9848
+  3.8273   3.4063   4.2801
+  md      -1174.2544 -583.0501 4467.2799 517.5250 981.5023
+4547.5711 3938.5563 5035.4371
+  mh      -3153.8530 -2302.4389 3543.7943 2691.1823 4453.4872
+1210.8636 412.5608 5110.8177
+  lam     -79.8271 -55.2641 110.3067  61.1639  84.8732
+ 67.5088  40.1722 154.9061
+  bb       -0.0444  -0.0218   0.2267   0.0224   0.0439
+  0.2245   0.2043   0.2484
+
+mb: 308.506
+
+ 2 sigma spread = 83.563
+
+1 sigma spread = 38.753
+bb: 0.185
+
+ 2 sigma spread = 0.045
+
+1 sigma spread = 0.022
+md: 4009.329
+
+ 2 sigma spread = 1095.238
+
+1 sigma spread = 550.475
+ad: 4.683
+
+ 2 sigma spread = 0.987
+
+1 sigma spread = 0.438
+bd: 1.123
+
+ 2 sigma spread = 0.940
+
+1 sigma spread = 0.418
+mh: 273.137
+
+ 2 sigma spread = 3861.372
+
+1 sigma spread = 2498.753
+ah: 1.102
+
+ 2 sigma spread = 9.037
+
+1 sigma spread = 6.469
+lam: 162.029
+
+ 2 sigma spread = 82.732
+
+1 sigma spread = 58.245

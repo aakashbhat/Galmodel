@@ -1,0 +1,31 @@
+[[Fit Statistics]]
+    # fitting method   = leastsq
+    # function evals   = 641
+    # data points      = 272
+    # variables        = 7
+    chi-square         = 274.459887
+    reduced chi-square = 1.03569769
+    Akaike info crit   = 16.4488306
+    Bayesian info crit = 41.6894451
+[[Variables]]
+    mb:  10066.7616 +/- 9473.39731 (94.11%) (init = 439)
+    bb:  18.4422703 +/- 6.68627851 (36.26%) (init = 0.236)
+    md:  4574.63835 +/- 937.759932 (20.50%) (init = 3096)
+    ad:  3.10558075 +/- 15101.1259 (486257.71%) (init = 3.262)
+    bd:  0.02057930 +/- 14688.4213 (71374751.83%) (init = 0.289)
+    mh:  101234.015 +/- 1546416.02 (1527.57%) (init = 142200)
+    ah:  188.891041 +/- 2017.72583 (1068.20%) (init = 45.02)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(ad, bd) = -1.000
+    C(mh, ah) = 0.995
+    C(bb, md) = 0.960
+    C(mb, bb) = 0.937
+    C(mb, ah) = 0.895
+    C(mb, md) = 0.878
+    C(mb, mh) = 0.852
+    C(md, ah) = 0.751
+    C(bb, ah) = 0.743
+    C(md, mh) = 0.709
+    C(bb, mh) = 0.691
+    C(md, bd) = 0.149
+    C(md, ad) = -0.149

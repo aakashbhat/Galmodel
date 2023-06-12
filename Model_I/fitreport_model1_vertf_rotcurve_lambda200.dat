@@ -1,0 +1,20 @@
+[[Fit Statistics]]
+    # fitting method   = ampgo, with L-BFGS-B as local solver
+    # function evals   = 3276
+    # data points      = 130
+    # variables        = 8
+    chi-square         = 29.3519485
+    reduced chi-square = 0.24058974
+    Akaike info crit   = -177.462817
+    Bayesian info crit = -154.522542
+##  Warning: uncertainties could not be estimated:
+    lam:  at initial value
+[[Variables]]
+    mb:   861.831110 (init = 409)
+    bb:   13.4449610 (init = 0.23)
+    md:   3959.42838 (init = 2856)
+    ad:   3.91121146 (init = 4.22)
+    bd:   0.20845081 (init = 0.292)
+    mh:   1078.39846 (init = 1018)
+    lam:  200.000000 (init = 200)
+    ah:   4.14337534 (init = 2.562)

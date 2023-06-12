@@ -1,0 +1,123 @@
+[[Fit Statistics]]
+    # fitting method   = ampgo, with L-BFGS-B as local solver
+    # function evals   = 20367
+    # data points      = 150
+    # variables        = 8
+    chi-square         = 7.19027749
+    reduced chi-square = 0.05063576
+    Akaike info crit   = -439.685829
+    Bayesian info crit = -415.600747
+[[Variables]]
+    mb:   1518.60950 +/- 432.839028 (28.50%) (init = 409)
+    bb:   2.80482249 +/- 0.29753550 (10.61%) (init = 0.23)
+    md:   2794.87565 +/- 204.064530 (7.30%) (init = 2856)
+    ad:   6.12437912 +/- 0.83672388 (13.66%) (init = 4.22)
+    bd:   0.36326530 +/- 0.02733078 (7.52%) (init = 0.292)
+    mh:   698.019000 +/- 651.963466 (93.40%) (init = 1018)
+    ah:   2.60980042 +/- 2.32398980 (89.05%) (init = 2.562)
+    lam:  69.3100000 +/- 1.35995836 (1.96%) (init = 100)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah) = 0.996
+    C(md, bd) = 0.883
+    C(mb, ad) = 0.766
+    C(bb, mh) = -0.757
+    C(bb, ah) = -0.721
+    C(mb, ah) = 0.538
+    C(mb, md) = 0.527
+    C(md, ah) = 0.501
+    C(bb, ad) = 0.488
+    C(bd, ah) = 0.481
+    C(mb, mh) = 0.467
+    C(bb, bd) = -0.451
+    C(md, mh) = 0.449
+    C(bd, mh) = 0.445
+    C(md, ad) = 0.417
+    C(bb, md) = -0.396
+    C(mb, bd) = 0.370
+    C(ad, bd) = 0.226
+    C(ad, mh) = -0.163[[Fit Statistics]]
+    # fitting method   = emcee
+    # function evals   = 5000
+    # data points      = 150
+    # variables        = 8
+    chi-square         = 7.19026919
+    reduced chi-square = 0.05063570
+    Akaike info crit   = -439.686002
+    Bayesian info crit = -415.600920
+[[Variables]]
+    mb:   1518.60558 +/- 0.74983304 (0.05%) (init = 1518.609)
+    bb:   2.80481327 +/- 0.00135898 (0.05%) (init = 2.804822)
+    md:   2794.89789 +/- 1.48207991 (0.05%) (init = 2794.876)
+    ad:   6.12442826 +/- 0.00266738 (0.04%) (init = 6.124379)
+    bd:   0.36326449 +/- 2.0478e-04 (0.06%) (init = 0.3632653)
+    mh:   698.012398 +/- 0.32226776 (0.05%) (init = 698.019)
+    ah:   2.60977757 +/- 0.00126111 (0.05%) (init = 2.6098)
+    lam:  69.3111195 +/- 0.03438314 (0.05%) (init = 69.31)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(md, mh)  = -0.300
+    C(bb, ad)  = -0.232
+    C(bb, ah)  = 0.225
+    C(mb, ad)  = -0.224
+    C(bd, lam) = 0.181
+    C(bb, lam) = 0.177
+    C(mb, ah)  = -0.167
+    C(md, ah)  = 0.136
+    C(md, bd)  = 0.122
+    C(md, lam) = 0.111
+  bb       -0.0077  -0.0013   2.8048   0.0014   0.0070
+  2.8048   0.0015   0.0012
+  mb       -3.9271  -0.8041 1518.6056   0.6962   3.2918
+1518.6526   0.9323   0.5618
+  ad       -0.0150  -0.0026   6.1244   0.0028   0.0143
+  6.1245   0.0027   0.0026
+  mh       -1.5513  -0.3503 698.0124   0.2947   1.5810
+698.0199   0.3098   0.3276
+  md       -7.8285  -1.5107 2794.8979   1.4535   7.5084
+2794.8570   1.4228   1.5093
+  ah       -0.0063  -0.0013   2.6098   0.0012   0.0058
+  2.6097   0.0012   0.0013
+  lam      -0.1682  -0.0354  69.3111   0.0334   0.1533
+ 69.3117   0.0390   0.0296
+  bd       -0.0011  -0.0002   0.3633   0.0002   0.0009
+  0.3633   0.0002   0.0002
+
+mb: 1516.942
+
+ 2 sigma spread = 3.792
+
+1 sigma spread = 0.750
+bb: 2.800
+
+ 2 sigma spread = 0.008
+
+1 sigma spread = 0.001
+md: 2807.622
+
+ 2 sigma spread = 8.051
+
+1 sigma spread = 1.483
+ad: 6.141
+
+ 2 sigma spread = 0.015
+
+1 sigma spread = 0.003
+bd: 0.363
+
+ 2 sigma spread = 0.001
+
+1 sigma spread = 0.000
+mh: 695.457
+
+ 2 sigma spread = 1.643
+
+1 sigma spread = 0.324
+ah: 2.605
+
+ 2 sigma spread = 0.006
+
+1 sigma spread = 0.001
+lam: 69.540
+
+ 2 sigma spread = 0.171
+
+1 sigma spread = 0.035[[0.09703226]]

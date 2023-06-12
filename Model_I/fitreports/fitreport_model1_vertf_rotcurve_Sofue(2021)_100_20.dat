@@ -1,0 +1,145 @@
+[[Fit Statistics]]
+    # fitting method   = ampgo, with L-BFGS-B as local solver
+    # function evals   = 20394
+    # data points      = 151
+    # variables        = 8
+    chi-square         = 8.09894714
+    reduced chi-square = 0.05663599
+    Akaike info crit   = -425.757411
+    Bayesian info crit = -401.619172
+##  Warning: uncertainties could not be estimated:
+    md:   at initial value
+    mh:   at initial value
+[[Variables]]
+    mb:   408.992156 +/-        nan (nan%) (init = 409)
+    bb:   1.75742328 +/- 2.08119078 (118.42%) (init = 0.23)
+    md:   2856.00283 +/- 691.873634 (24.23%) (init = 2856)
+    ad:   4.15458371 +/- 0.54475592 (13.11%) (init = 4.22)
+    bd:   0.35099861 +/- 0.07354928 (20.95%) (init = 0.292)
+    mh:   1017.99926 +/- 1862.68179 (182.97%) (init = 1018)
+    ah:   3.05550063 +/- 5.14806530 (168.49%) (init = 2.562)
+    lam:  62.4468050 +/- 14.3637344 (23.00%) (init = 100)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(bb, ah)  = -1.041
+    C(bb, mh)  = -1.039
+    C(md, ah)  = 1.008
+    C(md, mh)  = 1.006
+    C(mh, ah)  = 1.000
+    C(bb, md)  = -0.993
+    C(md, bd)  = 0.977
+    C(bd, ah)  = 0.974
+    C(ad, mh)  = -0.972
+    C(bd, mh)  = 0.971
+    C(ad, ah)  = -0.970
+    C(bb, bd)  = -0.969
+    C(md, ad)  = -0.913
+    C(bb, ad)  = 0.908
+    C(ad, bd)  = -0.858
+    C(bb, lam) = 0.410
+    C(mh, lam) = -0.407
+    C(ah, lam) = -0.406
+    C(ad, lam) = 0.401
+    C(md, lam) = -0.394
+    C(bd, lam) = -0.375[[Fit Statistics]]
+    # fitting method   = emcee
+    # function evals   = 2000
+    # data points      = 151
+    # variables        = 8
+    chi-square         = 9.98734068
+    reduced chi-square = 0.06984154
+    Akaike info crit   = -394.110183
+    Bayesian info crit = -369.971944
+[[Variables]]
+    mb:   408.890546 +/- 65.0198339 (15.90%) (init = 408.9922)
+    bb:   1.75789300 +/- 0.44436972 (25.28%) (init = 1.757423)
+    md:   2855.34030 +/- 304.000617 (10.65%) (init = 2856.003)
+    ad:   4.08378362 +/- 0.38801839 (9.50%) (init = 4.154584)
+    bd:   0.35088552 +/- 0.03126191 (8.91%) (init = 0.3509986)
+    mh:   1031.22131 +/- 343.446232 (33.30%) (init = 1017.999)
+    ah:   3.05654676 +/- 0.98063679 (32.08%) (init = 3.055501)
+    lam:  62.5813350 +/- 13.7725923 (22.01%) (init = 62.4468)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah)  = 0.979
+    C(ah, lam) = 0.814
+    C(mh, lam) = 0.775
+    C(bb, lam) = 0.601
+    C(ad, lam) = -0.592
+    C(mb, md)  = -0.590
+    C(mb, ah)  = -0.560
+    C(ad, mh)  = -0.546
+    C(ad, ah)  = -0.537
+    C(mb, mh)  = -0.526
+    C(md, ah)  = 0.525
+    C(bb, ad)  = -0.473
+    C(md, lam) = 0.421
+    C(mb, bb)  = 0.395
+    C(bb, mh)  = 0.375
+    C(md, mh)  = 0.370
+    C(bb, ah)  = 0.353
+    C(mb, lam) = -0.338
+    C(mb, bd)  = -0.277
+    C(bd, ah)  = -0.189
+    C(bd, mh)  = -0.181
+    C(mb, ad)  = 0.145
+    C(bb, md)  = -0.106
+  md      -695.5721 -289.0742 2855.3403 319.4774 841.3499
+     nan      nan      nan
+  mb      -333.8833 -92.8030 408.8905  37.2367 194.5154
+     nan      nan      nan
+  ah       -1.4121  -0.4792   3.0565   1.4842   3.1823
+     nan      nan      nan
+  bb       -0.9964  -0.3465   1.7579   0.5434   2.3408
+  1.8357   0.5267   0.3325
+  ad       -0.9317  -0.4977   4.0838   0.2788   0.6816
+     nan      nan      nan
+  bd       -0.0969  -0.0352   0.3509   0.0273   0.1276
+     nan      nan      nan
+  mh      -515.4763 -200.6819 1031.2213 487.1101 1085.4473
+     nan      nan      nan
+  lam     -31.6768  -7.3051  62.5813  20.2401  56.7806
+     nan      nan      nan
+
+mb: 408.842
+
+ 2 sigma spread = 265.903
+
+1 sigma spread = 65.020
+bb: 1.734
+
+ 2 sigma spread = 1.708
+
+1 sigma spread = 0.448
+md: 2908.481
+
+ 2 sigma spread = 811.975
+
+1 sigma spread = 305.249
+ad: 4.163
+
+ 2 sigma spread = 0.811
+
+1 sigma spread = 0.392
+bd: 0.350
+
+ 2 sigma spread = 0.115
+
+1 sigma spread = 0.031
+mh: 1003.356
+
+ 2 sigma spread = 815.901
+
+1 sigma spread = 343.155
+ah: 3.057
+
+ 2 sigma spread = 2.307
+
+1 sigma spread = 0.983
+lam: 62.521
+
+ 2 sigma spread = 44.349
+
+1 sigma spread = 13.827
+ solar density MCMC mode: [[nan]]
+ solar density MCMC mxl:  [[0.09860842]]
+ solar halo density mode: [[0.]]
+ solar halo density mxl: [[0.00904109]]

@@ -1,0 +1,37 @@
+[[Fit Statistics]]
+    # fitting method   = emcee
+    # function evals   = 100000
+    # data points      = 144
+    # variables        = 8
+    chi-square         = 413.406801
+    reduced chi-square = 3.03975589
+    Akaike info crit   = 167.865107
+    Bayesian info crit = 191.623614
+[[Variables]]
+    mb:   33.1235593 +/- 67.6057103 (204.10%) (init = 409)
+    bb:   0.44267456 +/- 0.33712992 (76.16%) (init = 0.23)
+    md:   3120.13230 +/- 263.020576 (8.43%) (init = 2856)
+    ad:   3.08160626 +/- 0.26308042 (8.54%) (init = 4.22)
+    bd:   0.43641888 +/- 0.17551545 (40.22%) (init = 0.292)
+    mh:   1074.73621 +/- 376.282106 (35.01%) (init = 1018)
+    lam:  80.6777588 +/- 878.511378 (1088.91%) (init = 100)
+    ah:   3.25328973 +/- 1.09609076 (33.69%) (init = 2.562)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah)  = 0.992
+    C(md, bd)  = 0.841
+    C(mb, ad)  = 0.836
+    C(md, ah)  = 0.817
+    C(md, mh)  = 0.756
+    C(bd, ah)  = 0.702
+    C(md, ad)  = -0.669
+    C(bd, mh)  = 0.649
+    C(ad, bd)  = -0.610
+    C(ad, ah)  = -0.570
+    C(ad, mh)  = -0.509
+    C(mb, md)  = -0.487
+    C(mb, bd)  = -0.290
+    C(mb, ah)  = -0.275
+    C(mb, mh)  = -0.220
+    C(mb, bb)  = -0.187
+    C(bb, ad)  = -0.186
+    C(bd, lam) = 0.121

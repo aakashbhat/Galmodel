@@ -1,0 +1,32 @@
+[[Fit Statistics]]
+    # fitting method   = ampgo, with L-BFGS-B as local solver
+    # function evals   = 3570
+    # data points      = 130
+    # variables        = 6
+    chi-square         = 145.691374
+    reduced chi-square = 1.17493043
+    Akaike info crit   = 26.8142872
+    Bayesian info crit = 44.0194939
+[[Variables]]
+    mb:  439 (fixed)
+    bb:  10.4276857 +/- 3.92185597 (37.61%) (init = 10.42769)
+    md:  2949.18147 +/- 357.469166 (12.12%) (init = 2949.181)
+    ad:  3.07096756 +/- 0.44908196 (14.62%) (init = 3.070968)
+    bd:  0.32850339 +/- 0.52586162 (160.08%) (init = 0.3285034)
+    mh:  13266.7495 +/- 2731.99884 (20.59%) (init = 13266.75)
+    ah:  10.2919950 +/- 2.54052985 (24.68%) (init = 10.29199)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah) = 0.991
+    C(md, bd) = 0.977
+    C(ad, ah) = -0.969
+    C(ad, bd) = -0.956
+    C(ad, mh) = -0.956
+    C(bd, ah) = 0.941
+    C(md, ad) = -0.904
+    C(bd, mh) = 0.903
+    C(md, ah) = 0.900
+    C(md, mh) = 0.850
+    C(bb, ah) = -0.359
+    C(bb, mh) = -0.354
+    C(bb, ad) = 0.256
+    C(bb, bd) = -0.174
