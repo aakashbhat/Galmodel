@@ -385,7 +385,7 @@ def halovert(R,z,Mh,ah,lam):
 #########################
 #Read Data from files:
 ########################
-Inner=2 #1 is for Reid 2014, 2 for Sofue 2021, 3 is for Sofue 2009
+Inner=3 #1 is for Reid 2014, 2 for Sofue 2021, 3 is for Sofue 2009
 
 data1 = ascii.read("data/rotcurv_eilers.ascii")
 data2 = ascii.read("data/rotcurv_bhatta_25kpc.ascii")
@@ -501,10 +501,10 @@ def residual(params, x1,x2, vel, uncertainty1,vertif,erforce):
         return residual
 
 ###################################################
-
+###Fitting Procedure:
 np.random.seed(1)
-steps=100
-walkers=20
+steps=10000
+walkers=100
 params = Parameters()
 params.add('mb', value=409,min=0) #Initial values for Params from Irrgang 2013
 params.add('bb', value=0.23,min=0,max=5)
@@ -515,10 +515,10 @@ params.add('mh', value=1018,min=0)
 params.add('ah', value=2.562,min=0,max=10)
 params.add('lam', value=100,min=0,max=200)
 
-mini = lmfit.Minimizer(residual, params,(radius,radius4,vel, (poser+neger)/2,vertif,erforce), nan_policy='omit')
+mini = lmfit.Minimizer(residual, params,(radius,radius4,vel, (poser+neger)/2,vertif,erforce), nan_policy='omit') #The first minimizer which uses ampgo followed by the second one
 out=mini.minimize(method="ampgo",params=params)
+out3=mini.minimize(method="emcee",params=out.params,steps=steps,burn=1000,nwalkers=walkers,is_weighted=True)
 print(fit_report(out))
-out3=mini.minimize(method="emcee",params=out.params,steps=steps,nwalkers=walkers,is_weighted=True)
 print(fit_report(out3))
 
 #########################################################
@@ -528,18 +528,18 @@ file.write(fit_report(out3))
 file.write("\n")
 mcmc_mod=out3.params.copy()
 mcmc_mxl=out3.params.copy()
-print(mcmc_mod["ah"])
-print('\nError estimates from emcee:')
-print('------------------------------------------------------')
-print('Parameter  -2sigma  -1sigma   median  +1sigma  +2sigma')
+highest_prob = np.argmax(out3.lnprob)
+hp_loc = np.unravel_index(highest_prob, out3.lnprob.shape)
+mle_soln = out3.chain[hp_loc]
+data = []
 
-for name2 in (set(params.keys()) - set(["lam2"])):
+
+print('\nError estimates from emcee:')
+
+for ix, name2 in enumerate(out3.params.copy()):
     print(name2)
     MC_array = np.array(out3.flatchain[name2])
-    mode = mode_and_HDI(MC_array, plot=False)
-    print(mode["mode"])
-    print(mode["HDI_lo"])
-    print(mode["HDI_hi"])
+    mode = mode_and_HDI(MC_array, plot=True)
     mcmc_mod[name2].value=mode["mode"]
     quantiles = np.percentile(out3.flatchain[name2],
                               [2.275, 15.865, 50, 84.135, 97.275])
@@ -549,43 +549,26 @@ for name2 in (set(params.keys()) - set(["lam2"])):
     err_p1 = quantiles[3] - median
     err_p2 = quantiles[4] - median
     fmt = '  {:5s}   {:8.4f} {:8.4f} {:8.4f} {:8.4f} {:8.4f}'.format
-    print(fmt(name2, err_m2, err_m1, median, err_p1, err_p2))
+    #print(fmt(name2, err_m2, err_m1, median, err_p1, err_p2))
     file.write(fmt(name2, err_m2, err_m1, median, err_p1, err_p2))
     file.write("\n")
     fmt = '{:8.4f} {:8.4f} {:8.4f}'.format
     file.write(fmt(mode["mode"],-(mode["HDI_lo"]-mode["mode"]),(mode["HDI_hi"]-mode["mode"])))
     file.write("\n")
+    #print(f"{param}: {mle_soln[ix]:.3f}")
+    file.write(f"\n{name2}: {mle_soln[ix]:.3f}\n")
+    file.write(f"\n 2 sigma spread = {0.5 * (quantiles[4] - quantiles[0]):.3f}")
+    file.write(f"\n\n1 sigma spread = {0.5 * (quantiles[3] - quantiles[1]):.3f}")
+    mcmc_mxl[name2].value=mle_soln[ix]
+    data.append({'Parameter': name, 'ampgo': out.params[name2].value,'mcmc_mxl': mcmc_mxl[name2].value,'mcmc_mxl_2sigma_plus': quantiles[4], 'mcmc_mxl_2sigma_minus':  quantiles[0],'mcmc_mode': mcmc_mod[name2].value,'mcmc_mode_hdi_plus':(mode["HDI_hi"]-mode["mode"]),'mcmc_mode_hdi_minus': (mode["HDI_lo"]-mode["mode"])})
 
-highest_prob = np.argmax(out3.lnprob)
-hp_loc = np.unravel_index(highest_prob, out3.lnprob.shape)
-mle_soln = out3.chain[hp_loc]
-print("\nMaximum Likelihood Estimation (MLE):")
-print('----------------------------------')
 
-
-for ix, param in (enumerate(out3.params.copy())):
-    if param!="lam2":
-        print(f"{param}: {mle_soln[ix]:.3f}")
-        file.write(f"\n{param}: {mle_soln[ix]:.3f}\n")
-        quantiles = np.percentile(out3.flatchain[param], [2.28, 15.9, 50, 84.2, 97.7])
-        file.write(f"\n 2 sigma spread = {0.5 * (quantiles[4] - quantiles[0]):.3f}")
-        file.write(f"\n\n1 sigma spread = {0.5 * (quantiles[3] - quantiles[1]):.3f}")
-        mcmc_mxl[param].value=mle_soln[ix]
-
+###################################
 density_solar_mcmc_mode=density(8.178,0,mcmc_mod['mb'].value,mcmc_mod['bb'].value,mcmc_mod['md'].value,mcmc_mod['ad'].value,mcmc_mod['bd'].value,mcmc_mod['mh'].value,mcmc_mod['ah'].value,mcmc_mod['lam'].value)
 density_solar_mcmc_mxl=density(8.178,0,mcmc_mxl['mb'].value,mcmc_mxl['bb'].value,mcmc_mxl['md'].value,mcmc_mxl['ad'].value,mcmc_mxl['bd'].value,mcmc_mxl['mh'].value,mcmc_mxl['ah'].value,mcmc_mxl['lam'].value)
-print("the density at solar circle with mode is:")
-print(density_solar_mcmc_mode)
-print("the density at solar circle with mxl is:")
-print(density_solar_mcmc_mxl)
 
 halo_density_solar_mode=halo_as_density(8.178,0,0,mcmc_mod['mh'].value,mcmc_mod['ah'].value,mcmc_mod['lam'].value)
 halo_density_solar_mxl=halo_as_density(8.178,0,0,mcmc_mxl['mh'].value,mcmc_mxl['ah'].value,mcmc_mxl['lam'].value)
-
-print("the halo density at solar circle with mode is:")
-print(halo_density_solar_mode/(40.003))
-print("the halo density at solar circle with mxl is:")
-print(halo_density_solar_mxl/(40.003))
 
 file.write(f"\n solar density MCMC mode: {density_solar_mcmc_mode[0]}")
 file.write(f"\n solar density MCMC mxl:  {density_solar_mcmc_mxl[0]}")
@@ -595,24 +578,15 @@ file.write(f"\n solar halo density mxl: {halo_density_solar_mxl[0]/(40.003)}")
 
 file.close()
 
-print("MCMC mode ah: ",mcmc_mod['ah'].value)
-print("MCMC mxl ah: ",mcmc_mxl['ah'].value)
 
-# Extract parameter values and other relevant information
-data = []
-for param_name, param_value in out.params.items():
-    data.append({'Parameter': param_name, 'Value': param_value.value})
-# Save the data as a CSV file
-filename = 'ampgo_%s_%s_%s_results.csv'%(name,steps,walkers)
+#################################################
+
+filename = 'output_params/fit_%s_%s_%s_params.csv'%(name,steps,walkers)
 with open(filename, 'w', newline='') as file:
-    writer = csv.DictWriter(file, fieldnames=['Parameter', 'Value'])
+    writer = csv.DictWriter(file, fieldnames=['Parameter', 'ampgo', 'mcmc_mxl', 'mcmc_mxl_2sigma_plus', 'mcmc_mxl_2sigma_minus','mcmc_mode','mcmc_mode_hdi_plus','mcmc_mode_hdi_minus'])
     writer.writeheader()
     writer.writerows(data)
-with open('ampgo_result_%s_%s_%s.pkl'%(name,steps,walkers),'wb') as f:
-    pickle.dump(out,f)
 
-with open('ampgo_result_%s_%s_%s.pkl'%(name,steps,walkers),'rb') as f:
-    out=pickle.load(f)
 
 #################
 #Plotting the results:
@@ -647,9 +621,9 @@ plt.figure(0)
 plt.xlabel('log(R) (kpc)')
 plt.ylabel('V$_{circ}$')
 plt.plot(np.log10(radiusformodel), vrinitial, 'k',label="Best Fit (Irrgang 2013)")
-plt.plot(np.log10(radiusformodel), vrmodel_mcmc_mod, 'r^', label='Best fit (MCMC Mode)',markersize=2)
-plt.plot(np.log10(radiusformodel), vrmodel_mcmc_mxl, 'rv', label='Best fit (MCMC MXL)',markersize=2)
-plt.plot(np.log10(radiusformodel), vrmodel_ampgo, 'r--', label='Best fit (AMPGO)',markersize=2)
+plt.plot(np.log10(radiusformodel), vrmodel_mcmc_mod, 'r^', label='Best fit (MCMC Mode)',markersize=1)
+plt.plot(np.log10(radiusformodel), vrmodel_mcmc_mxl, 'kv', label='Best fit (MCMC MXL)',markersize=1)
+plt.plot(np.log10(radiusformodel), vrmodel_ampgo, 'r--', label='Best fit (AMPGO)',markersize=1)
 #plt.plot(np.log10(radiusformodel), vrmodel_mcmc_b, 'k--', label='Bulge',markersize=2)
 #plt.plot(np.log10(radiusformodel), vrmodel_mcmc_d, 'k+', label='Disk',markersize=2)
 #plt.plot(np.log10(radiusformodel), vrmodel_mcmc_h, 'ko', label='Halo',markersize=2)
@@ -663,9 +637,9 @@ plt.figure(1)
 plt.xlabel('R (kpc)')
 plt.ylabel('V$_{circ}$')
 plt.plot(radiusformodel[50:], vrinitial[50:], 'k',label="Best Fit (Irrgang 2013)")
-plt.plot(radiusformodel[50:], vrmodel_mcmc_mod[50:], 'r^', label='Best fit (MCMC Mode)',markersize=2)
-plt.plot(radiusformodel[50:], vrmodel_mcmc_mxl[50:], 'rv', label='Best fit (MCMC MXL)',markersize=2)
-plt.plot(radiusformodel[50:], vrmodel_ampgo[50:], 'r--', label='Best fit (AMPGO)',markersize=2)
+plt.plot(radiusformodel[50:], vrmodel_mcmc_mod[50:], 'r^', label='Best fit (MCMC Mode)',markersize=1)
+plt.plot(radiusformodel[50:], vrmodel_mcmc_mxl[50:], 'kv', label='Best fit (MCMC MXL)',markersize=1)
+plt.plot(radiusformodel[50:], vrmodel_ampgo[50:], 'r--', label='Best fit (AMPGO)',markersize=1)
 plt.errorbar(radius1, vel1, yerr=(poser1,neger1),fmt='.', label='Eilers(2019)')
 plt.errorbar(radius2, vel2, yerr=(poser2,neger2),fmt='+', label='Bhattacharjee(2014)')
 plt.legend()
@@ -699,7 +673,7 @@ plt.savefig("Plots/%s/Acceptance_%s_%s.pdf"%(name,steps,walkers))
 ###########
 
 plt.figure(5)
-emcee_corner = corner.corner(out3.flatchain, labels=out3.var_names,truths=list(out3.params.valuesdict().values()))
+emcee_corner = corner.corner(out3.flatchain, labels=out3.var_names,truths=list(out3.params.valuesdict().values()),quantiles=[0.16,0.5,0.84])
 emcee_corner.savefig("Plots/%s/emcee_corner_%s_%s.pdf"%(name,steps,walkers))
 
 

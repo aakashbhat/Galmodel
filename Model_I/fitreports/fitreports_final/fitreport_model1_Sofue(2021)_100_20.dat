@@ -82,63 +82,63 @@
     C(bd, mh)  = -0.181
     C(mb, ad)  = 0.145
     C(bb, md)  = -0.106
-  mh      -515.4763 -200.6819 1031.2213 487.1101 1085.4473
-     nan      nan      nan
   mb      -333.8833 -92.8030 408.8905  37.2367 194.5154
-     nan      nan      nan
-  md      -695.5721 -289.0742 2855.3403 319.4774 841.3499
-     nan      nan      nan
-  bd       -0.0969  -0.0352   0.3509   0.0273   0.1276
-     nan      nan      nan
-  bb       -0.9964  -0.3465   1.7579   0.5434   2.3408
-  1.8357   0.5267   0.3325
-  ah       -1.4121  -0.4792   3.0565   1.4842   3.1823
-     nan      nan      nan
-  lam     -31.6768  -7.3051  62.5813  20.2401  56.7806
-     nan      nan      nan
-  ad       -0.9317  -0.4977   4.0838   0.2788   0.6816
      nan      nan      nan
 
 mb: 408.842
 
- 2 sigma spread = 265.903
+ 2 sigma spread = 264.199
 
-1 sigma spread = 65.020
+1 sigma spread = 65.020  bb       -0.9964  -0.3465   1.7579   0.5434   2.3408
+  1.8357   0.5267   0.3325
+
 bb: 1.734
 
- 2 sigma spread = 1.708
+ 2 sigma spread = 1.669
 
-1 sigma spread = 0.448
+1 sigma spread = 0.445  md      -695.5721 -289.0742 2855.3403 319.4774 841.3499
+     nan      nan      nan
+
 md: 2908.481
 
- 2 sigma spread = 811.975
+ 2 sigma spread = 768.461
 
-1 sigma spread = 305.249
+1 sigma spread = 304.276  ad       -0.9317  -0.4977   4.0838   0.2788   0.6816
+     nan      nan      nan
+
 ad: 4.163
 
- 2 sigma spread = 0.811
+ 2 sigma spread = 0.807
 
-1 sigma spread = 0.392
+1 sigma spread = 0.388  bd       -0.0969  -0.0352   0.3509   0.0273   0.1276
+     nan      nan      nan
+
 bd: 0.350
 
- 2 sigma spread = 0.115
+ 2 sigma spread = 0.112
 
-1 sigma spread = 0.031
+1 sigma spread = 0.031  mh      -515.4763 -200.6819 1031.2213 487.1101 1085.4473
+     nan      nan      nan
+
 mh: 1003.356
 
- 2 sigma spread = 815.901
+ 2 sigma spread = 800.462
 
-1 sigma spread = 343.155
+1 sigma spread = 343.896  ah       -1.4121  -0.4792   3.0565   1.4842   3.1823
+     nan      nan      nan
+
 ah: 3.057
 
- 2 sigma spread = 2.307
+ 2 sigma spread = 2.297
 
-1 sigma spread = 0.983
+1 sigma spread = 0.982  lam     -31.6768  -7.3051  62.5813  20.2401  56.7806
+     nan      nan      nan
+
 lam: 62.521
 
- 2 sigma spread = 44.349
+ 2 sigma spread = 44.229
 
-1 sigma spread = 13.827
+1 sigma spread = 13.773
  solar density MCMC mode: [[nan]]
  solar density MCMC mxl:  [[0.09860842]]
  solar halo density mode: [[0.]]
