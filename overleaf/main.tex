@@ -9,7 +9,7 @@
 %\bibliographystyle{mnras}
 \usepackage{newtxtext,newtxmath}
 \usepackage[T1]{fontenc}
-
+\usepackage{csvsimple}
 \DeclareRobustCommand{\VAN}[3]{#2}
 \let\VANthebibliography\thebibliography
 \def\thebibliography{\DeclareRobustCommand{\VAN}[3]{##3}\VANthebibliography}
@@ -241,6 +241,41 @@ Model I has Bulge and disk from Miyamoto and Nagai and dark matter halo is taken
  For the disc, the masses are within the error limits of the three curves. However, RC3 gives a much bigger scale length, while all three rotation curves leads to a much bigger scale height for the disk. The errors on the latter are also quite large and a smaller disk is not excluded.
  
  For the halo, the masses are predicted to be close to the initial value and similar for all three. However, all three curves predict a much bigger scale length $a_h$, close to the maximum allowed value of 20 kpc. Similarly, a much smaller $\Lambda$ is preferred, which however cannot directly be compared with \citetads{andreassmass} where it was not allowed to vary. The fits to the rotation curves and the vertical forces are given in \ref{fig:Model1_rc} and \ref{fig:Model1_vertif}
+
+
+ \pgfplotstableread[col sep=comma]{Model_I/output_params/fit_Sofue(2021)_10000_100_params.csv}\tableaf
+\begin{table*}[ht]
+\centering
+\caption{Fitted parameters values for Model I. Values given are the Mode and HDI of the posterior parameter distributions. }\label{tab:model1params} 
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.9\textwidth}{!}{
+\pgfplotstabletypeset[
+columns={Parameter,ampgo,mcmc_mxl,mcmc_mode},
+column type=c,
+string type,
+every head row/.style={before row=\hline\hline,after row=\hline,},
+every last row/.append style={after row={\hline} },
+every first column/.style={column type/.add={}{}},
+every last column/.style={column type/.add={}{}},
+columns/Parameter/.style={column name=Name,string replace*={_}{\textunderscore}},
+columns/ampgo/.style={column name=$\varpi$,column type=c,numeric type,fixed,precision=2},
+columns/mcmc_mxl/.style={column name=$e_\varpi$,column type=c,numeric type,fixed,precision=3},
+columns/mcmc_mode/.style={column name=$\mu_{\alpha*}$,column type=c,numeric type,fixed,precision=2},
+%columns/e_pmRA/.style={column name=e$\mu_{\alpha*}$,column type=c,numeric type,fixed,precision=2},
+%columns/pmDE/.style={column name=$\mu_{\delta}$,column type=c,numeric type,fixed,precision=2},
+%columns/e_pmDE/.style={column name=e$\mu_{\delta}$,column type=c,numeric type,fixed,precision=2},
+%columns/RV/.style={column name=RV,column type=c,numeric type,fixed,precision=2},
+%columns/s_RV/.style={column name=eRV,column type=c,numeric type,fixed,precision=2},
+%columns/N/.style={column name=N$_\text{PM}$,column type=c,numeric type,fixed},
+%columns/NStars/.style={column name=N$_\text{RV}$,column type=c,numeric type,fixed,precision=2},
+%columns/SD/.style={column name=Standard Deviation,numeric type,fixed,precision=2},
+%columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
+%columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
+]{\tableaf}
+}
+\tablefoot{}
+\end{table*}
+
 \begin{table*}
 \begin{center}
 \caption{Fitted parameters values for Model I. Values given are the Mode and HDI of the posterior parameter distributions. }\label{tab:model1params} 
@@ -270,18 +305,18 @@ $\rho_\odot$&0.1&0.092&&\\
 \end{table*}
 
 \begin{figure}
-\includegraphics[width=\columnwidth]{plots/MODELI/RotCurve/sofue(2009)/Rotcur_ModelI_eil_bhatta_log_10000.pdf}
-\includegraphics[width=\columnwidth]{plots/MODELI/RotCurve/sofue(2021)/Rotcur_ModelI_eil_bhatta_log_10000.pdf}
-\includegraphics[width=\columnwidth]{plots/MODELI/RotCurve/Reid(2014)/Rotcur_ModelI_eil_bhatta_log_10000.pdf}
+\includegraphics[width=\columnwidth]{Model_I/Plots/Sofue(2009)/Rotcur_ModelI_eil_bhatta_log_10000_100.pdf}
+\includegraphics[width=\columnwidth]{Model_I/Plots/Sofue(2021)/Rotcur_ModelI_eil_bhatta_log_10000_100.pdf}
+\includegraphics[width=\columnwidth]{Model_I/Plots/Reid(2014)/Rotcur_ModelI_eil_bhatta_log_10000_100.pdf}
 \caption{The Rotation curve of the Milky Way in the Log scale for the best fit models and the original model 1 of Andreas for RC1 (top), RC2 (middle), and RC3 (bottom).
 }
 \label{fig:Model1_rc}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=\columnwidth]{plots/MODELI/VertiF/sofue(2009)/VertForce_ModelI_10000.pdf}
-\includegraphics[width=\columnwidth]{plots/MODELI/VertiF/sofue(2021)/VertForce_ModelI_10000.pdf}
-\includegraphics[width=\columnwidth]{plots/MODELI/VertiF/Reid(2014)/VertForce_ModelI_10000.pdf}
+\includegraphics[width=\columnwidth]{Model_I/Plots/Sofue(2009)/VertForce_ModelI_10000_100.pdf}
+\includegraphics[width=\columnwidth]{Model_I/Plots/Sofue(2021)/VertForce_ModelI_10000_100.pdf}
+\includegraphics[width=\columnwidth]{Model_I/Plots/Reid(2014)/VertForce_ModelI_10000_100.pdf}
 \caption{The Vertical force at 1.1 kpc for the best fit models and the original model 1 of Andreas.
 }
 \label{fig:Model1_vertif}
@@ -298,17 +333,17 @@ The curves and fits are shown in \ref{fig:Model3_rc} and \ref{fig:Model3_vertif}
 
 
 \begin{figure}
-\includegraphics[width=\columnwidth]{plots/MODELIII/Rotcurve/sofue(2009)/Rotcur_ModelIII_log_10000.pdf}
-\includegraphics[width=\columnwidth]{plots/MODELIII/Rotcurve/sofue(2021)/Rotcur_ModelIII_log_10000.pdf}
-\includegraphics[width=\columnwidth]{plots/MODELIII/Rotcurve/reid(2014)/Rotcur_ModelIII_log_10000.pdf}
+\includegraphics[width=\columnwidth]{Model_III/Plots/Sofue(2009)/Rotcur_ModelIII_log_10000_100.pdf}
+\includegraphics[width=\columnwidth]{Model_III/Plots/Sofue(2021)/Rotcur_ModelIII_log_10000_100.pdf}
+\includegraphics[width=\columnwidth]{Model_III/Plots/Reid(2014)/Rotcur_ModelIII_log_10000_100.pdf}
 \caption{The Rotation curve of the Milky Way in the Log scale for the best fit models and the original model 1 of Andreas for RC1 (top), RC2 (middle), and RC3 (bottom).
 }
 \label{fig:Model3_rc}
 \end{figure}
 \begin{figure}
-\includegraphics[width=\columnwidth]{plots/MODELIII/VertiF/sofue(2009)/VertForce_ModelIII_10000.pdf}
-\includegraphics[width=\columnwidth]{plots/MODELIII/VertiF/sofue(2021)/VertForce_ModelIII_10000.pdf}
-\includegraphics[width=\columnwidth]{plots/MODELIII/VertiF/reid(2014)/VertForce_ModelIII_10000.pdf}
+\includegraphics[width=\columnwidth]{Model_III/Plots/Sofue(2009)/VertForce_ModelI_10000_100.pdf}
+\includegraphics[width=\columnwidth]{Model_III/Plots/Sofue(2021)/VertForce_ModelI_10000_100.pdf}
+\includegraphics[width=\columnwidth]{Model_III/Plots/Reid(2014)/VertForce_ModelI_10000_100.pdf}
 \caption{The Vertical force at 1.1 kpc for the best fit models and the original model 1 of Andreas.
 }
 \label{fig:Model3_vertif}
