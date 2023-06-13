@@ -1,0 +1,141 @@
+[[Fit Statistics]]
+    # fitting method   = ampgo, with L-BFGS-B as local solver
+    # function evals   = 22617
+    # data points      = 230
+    # variables        = 8
+    chi-square         = 23.6079279
+    reduced chi-square = 0.10634202
+    Akaike info crit   = -507.594246
+    Bayesian info crit = -480.089612
+[[Variables]]
+    mb:   336.196134 +/- 18.9853635 (5.65%) (init = 409)
+    bb:   0.19711552 +/- 0.00880152 (4.47%) (init = 0.23)
+    md:   2862.14826 +/- 134.335185 (4.69%) (init = 2856)
+    ad:   4.58730954 +/- 0.19446946 (4.24%) (init = 4.22)
+    bd:   0.36435205 +/- 0.02661844 (7.31%) (init = 0.292)
+    mh:   1020.96679 +/- 321.167482 (31.46%) (init = 1018)
+    ah:   2.94457218 +/- 0.83630116 (28.40%) (init = 2.562)
+    lam:  30.9518827 +/- 2.09557357 (6.77%) (init = 100)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah)  = 0.996
+    C(ad, mh)  = -0.930
+    C(ad, ah)  = -0.920
+    C(mb, bb)  = 0.875
+    C(mb, ah)  = 0.874
+    C(mb, mh)  = 0.855
+    C(bb, ah)  = 0.709
+    C(bb, mh)  = 0.692
+    C(mb, ad)  = -0.686
+    C(md, bd)  = 0.640
+    C(bb, ad)  = -0.530
+    C(mb, md)  = 0.458
+    C(bb, md)  = 0.387
+    C(md, ah)  = 0.340
+    C(md, mh)  = 0.257
+    C(mb, bd)  = 0.197
+    C(bb, bd)  = 0.174
+    C(mh, lam) = -0.173
+    C(ad, lam) = 0.166
+    C(ah, lam) = -0.155
+    C(md, lam) = 0.132
+    C(md, ad)  = -0.121
+    C(bd, lam) = 0.111
+    C(mb, lam) = -0.104[[Fit Statistics]]
+    # fitting method   = emcee
+    # function evals   = 1000000
+    # data points      = 230
+    # variables        = 8
+    chi-square         = 23.0276335
+    reduced chi-square = 0.10372808
+    Akaike info crit   = -513.318402
+    Bayesian info crit = -485.813768
+[[Variables]]
+    mb:   377.202358 +/- 41.9412117 (11.12%) (init = 336.1961)
+    bb:   0.21398217 +/- 0.02239487 (10.47%) (init = 0.1971155)
+    md:   3736.07697 +/- 441.507763 (11.82%) (init = 2862.148)
+    ad:   4.53341964 +/- 0.35737301 (7.88%) (init = 4.58731)
+    bd:   0.53503899 +/- 0.14475164 (27.05%) (init = 0.3643521)
+    mh:   1493.56877 +/- 1034.78541 (69.28%) (init = 1020.967)
+    ah:   4.81198432 +/- 2.93132545 (60.92%) (init = 2.944572)
+    lam:  108.333060 +/- 58.9948805 (54.46%) (init = 30.95188)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mh, ah) = 0.975
+    C(mb, bb) = 0.804
+    C(ad, mh) = -0.721
+    C(ad, ah) = -0.716
+    C(mb, ah) = 0.619
+    C(md, bd) = 0.594
+    C(mb, mh) = 0.540
+    C(bb, ah) = 0.426
+    C(mb, md) = 0.402
+    C(bb, mh) = 0.367
+    C(mb, ad) = -0.316
+    C(bb, md) = 0.310
+    C(md, ah) = 0.301
+    C(mb, bd) = 0.241
+    C(ad, bd) = -0.195
+    C(bb, bd) = 0.189
+    C(bb, ad) = -0.151
+    C(md, mh) = 0.134
+    C(bd, ah) = 0.134
+  mb      -98.8283 -44.9482 377.2024  38.9523  74.3816
+384.0331  45.7227  37.6699
+
+mb: 321.773
+
+ 2 sigma spread = 86.605
+
+1 sigma spread = 41.950  bb       -0.0440  -0.0220   0.2140   0.0228   0.0440
+  0.2116   0.0201   0.0246
+
+bb: 0.195
+
+ 2 sigma spread = 0.044
+
+1 sigma spread = 0.022  md      -851.0919 -431.1811 3736.0770 451.9969 898.9910
+3722.4622 424.6118 457.4922
+
+md: 3445.205
+
+ 2 sigma spread = 875.041
+
+1 sigma spread = 441.589  ad       -0.5679  -0.3019   4.5334   0.4129   0.8845
+  4.4279   0.2788   0.4064
+
+ad: 5.105
+
+ 2 sigma spread = 0.726
+
+1 sigma spread = 0.357  bd       -0.1970  -0.1148   0.5350   0.1747   0.4242
+  0.4871   0.1085   0.1593
+
+bd: 0.443
+
+ 2 sigma spread = 0.311
+
+1 sigma spread = 0.145  mh      -1273.7801 -864.6908 1493.5688 1205.2187 2001.2260
+783.2809 534.6835 1395.5673
+
+mh: 510.601
+
+ 2 sigma spread = 1637.503
+
+1 sigma spread = 1034.955  ah       -3.9467  -2.6025   4.8120   3.2608   4.8303
+  3.0426   1.6267   4.0746
+
+ah: 1.747
+
+ 2 sigma spread = 4.388
+
+1 sigma spread = 2.932  lam     -78.4855 -55.0256 108.3331  62.9830  86.7398
+ 62.8131  25.5795  89.5507
+
+lam: 53.410
+
+ 2 sigma spread = 82.613
+
+1 sigma spread = 59.004
+ solar density MCMC mode: [[0.09138498]]
+ solar density MCMC mxl:  [[0.09706713]]
+ solar halo density mode: [[0.00709429]]
+ solar halo density mxl: [[0.00842583]]

@@ -36,6 +36,7 @@ except ImportError as e:
     print("> WARNING: failed to import psutil; continuing anyway")
     
 import gc
+import csv
 from matplotlib.ticker import (MultipleLocator,
                                FormatStrFormatter,
                                AutoMinorLocator,
@@ -386,7 +387,7 @@ def halovert(R,z,Mh,ah):
 #Read Data from files:
 ########################
 path="/home/bhat/Hypervel/galmodel/Model_I/data/"
-Inner=1 #1 is for Reid 2014, 2 for Sofue 2021, 3 is for Sofue 2009
+Inner=3 #1 is for Reid 2014, 2 for Sofue 2021, 3 is for Sofue 2009
 
 data2 = ascii.read(path+"rotcurv_eilers.ascii")
 data3 = ascii.read(path+"rotcurv_bhatta_25kpc.ascii")
@@ -504,31 +505,35 @@ params.add('mh', value=142200,min=0)
 params.add('ah', value=45.02,min=0,max=200)
 mini = lmfit.Minimizer(residual, params,(radius,radius4,vel, (poser+neger)/2,vertif,erforce), nan_policy='omit')
 out=mini.minimize(method="ampgo",params=params)
-print(fit_report(out))
 #out2=mini.minimize(method="leastsq",params=out.params)
-out3=mini.minimize(method="emcee",params=out.params,steps=steps,nwalkers=walkers,is_weighted=True)
-
+out3=mini.minimize(method="emcee",params=out.params,steps=steps,burn=1000,nwalkers=walkers,is_weighted=True)
+print(fit_report(out))
 print(fit_report(out3))
 
 
-file=open('fitreports/fitreport_model3_vertf_rotcurve_%s_%s_%s.dat'%(name,steps,walkers),'w')
+file=open('fitreports/fitreports_final/fitreport_model3_%s_%s_%s.dat'%(name,steps,walkers),'w')
 file.write(fit_report(out))
 file.write(fit_report(out3))
 file.write("\n")
-mcmc_mod=out3
+mcmc_mod=out3.params.copy()
+mcmc_mxl=out3.params.copy()
+highest_prob = np.argmax(out3.lnprob)
+hp_loc = np.unravel_index(highest_prob, out3.lnprob.shape)
+mle_soln = out3.chain[hp_loc]
+data = []
+
 
 print('\nError estimates from emcee:')
-print('------------------------------------------------------')
-print('Parameter  -2sigma  -1sigma   median  +1sigma  +2sigma')
 
-for name2 in params.keys():
+
+for ix, name2 in enumerate(out3.params.copy()):
     print(name2)
     MC_array = np.array(out3.flatchain[name2])
-    mode = mode_and_HDI(MC_array, plot=True)
+    mode = mode_and_HDI(MC_array, plot=False)
     print(mode["mode"])
     print(mode["HDI_lo"])
     print(mode["HDI_hi"])
-    mcmc_mod.params[name2].value=mode["mode"]
+    mcmc_mod[name2].value=mode["mode"]
     quantiles = np.percentile(out3.flatchain[name2],
                               [2.275, 15.865, 50, 84.135, 97.275])
     median = quantiles[2]
@@ -543,13 +548,13 @@ for name2 in params.keys():
     fmt = '{:8.4f} {:8.4f} {:8.4f}'.format
     file.write(fmt(mode["mode"],-(mode["HDI_lo"]-mode["mode"]),(mode["HDI_hi"]-mode["mode"])))
     file.write("\n")
+    file.write(f"\n{name2}: {mle_soln[ix]:.3f}\n")
+    file.write(f"\n 2 sigma spread = {0.5 * (quantiles[4] - quantiles[0]):.3f}")
+    file.write(f"\n\n1 sigma spread = {0.5 * (quantiles[3] - quantiles[1]):.3f}")
+    mcmc_mxl[name2].value=mle_soln[ix]
+    data.append({'Parameter': name2, 'ampgo': out.params[name2].value,'mcmc_mxl': mcmc_mxl[name2].value,'mcmc_mxl_2sigma_plus': quantiles[4], 'mcmc_mxl_2sigma_minus':  quantiles[0],'mcmc_mode': mcmc_mod[name2].value,'mcmc_mode_hdi_plus':(mode["HDI_hi"]-mode["mode"]),'mcmc_mode_hdi_minus': (mode["HDI_lo"]-mode["mode"])})
 
-highest_prob = np.argmax(out3.lnprob)
-hp_loc = np.unravel_index(highest_prob, out3.lnprob.shape)
-mle_soln = out3.chain[hp_loc]
-print("\nMaximum Likelihood Estimation (MLE):")
-print('----------------------------------')
-
+'''
 for ix, param in (enumerate(out3.params.copy())):
 #for ix, param in (enumerate(params2)):
     if param!="lam2":
@@ -560,16 +565,27 @@ for ix, param in (enumerate(out3.params.copy())):
         file.write(f"\n 2 sigma spread = {0.5 * (quantiles[4] - quantiles[0]):.3f}")
         file.write(f"\n\n1 sigma spread = {0.5 * (quantiles[3] - quantiles[1]):.3f}")
         mcmc_mod.params[param].value=mle_soln[ix]
-density_solar=density(8.178,0,mcmc_mod.params['mb'].value,mcmc_mod.params['bb'].value,mcmc_mod.params['md'].value,mcmc_mod.params['ad'].value,mcmc_mod.params['bd'].value,mcmc_mod.params['mh'].value,mcmc_mod.params['ah'].value)
-print("the density at solar circle is:")
-print(density_solar)
+'''
+density_solar_mcmc_mode=density(8.178,0,mcmc_mod['mb'].value,mcmc_mod['bb'].value,mcmc_mod['md'].value,mcmc_mod['ad'].value,mcmc_mod['bd'].value,mcmc_mod['mh'].value,mcmc_mod['ah'].value)
+density_solar_mcmc_mxl=density(8.178,0,mcmc_mxl['mb'].value,mcmc_mxl['bb'].value,mcmc_mxl['md'].value,mcmc_mxl['ad'].value,mcmc_mxl['bd'].value,mcmc_mxl['mh'].value,mcmc_mxl['ah'].value)
 
-halo_density_solar=halo_NFW_density(8.178,0,0,mcmc_mod.params['mh'].value,mcmc_mod.params['ah'].value)
-print("the halo density at solar circle is:")
-print(halo_density_solar/(40.003))
-file.write(f"\n{density_solar[0]}")
+halo_density_solar_mode=halo_NFW_density(8.178,0,0,mcmc_mod['mh'].value,mcmc_mod['ah'].value)
+halo_density_solar_mxl=halo_NFW_density(8.178,0,0,mcmc_mxl['mh'].value,mcmc_mxl['ah'].value)
+
+file.write(f"\n solar density MCMC mode: {density_solar_mcmc_mode[0]}")
+file.write(f"\n solar density MCMC mxl:  {density_solar_mcmc_mxl[0]}")
+
+file.write(f"\n solar halo density mode: {halo_density_solar_mode[0]/(40.003)}")
+file.write(f"\n solar halo density mxl: {halo_density_solar_mxl[0]/(40.003)}")
+
 file.close()
 #####################################
+filename = 'output_params/fit_%s_%s_%s_params.csv'%(name,steps,walkers)
+with open(filename, 'w', newline='') as file:
+    writer = csv.DictWriter(file, fieldnames=['Parameter', 'ampgo', 'mcmc_mxl', 'mcmc_mxl_2sigma_plus', 'mcmc_mxl_2sigma_minus','mcmc_mode','mcmc_mode_hdi_plus','mcmc_mode_hdi_minus'])
+    writer.writeheader()
+    writer.writerows(data)
+
 
 #################
 #plotting:
@@ -579,30 +595,35 @@ radiusformodel=np.linspace(0.01,200.0,2000)
 radiusforvertf=np.linspace(4.0,10.0,50) #Radius for plotting the vertical force
 
 vrinitial=rotcurve(radiusformodel,439,0.236,3096,3.262,0.289,142200,45.02)
-vrmodel_mcmc=rotcurve(radiusformodel,mcmc_mod.params['mb'].value,mcmc_mod.params['bb'].value,mcmc_mod.params['md'].value,mcmc_mod.params['ad'].value,mcmc_mod.params['bd'].value,mcmc_mod.params['mh'].value,mcmc_mod.params['ah'].value)#Rotation curve for our best fit
+
+vrmodel_mcmc_mod=rotcurve(radiusformodel,mcmc_mod['mb'].value,mcmc_mod['bb'].value,mcmc_mod['md'].value,mcmc_mod['ad'].value,mcmc_mod['bd'].value,mcmc_mod['mh'].value,mcmc_mod['ah'].value)#Rotation curve for our best fit
+
 vrmodel_ampgo=rotcurve(radiusformodel,out.params['mb'].value,out.params['bb'].value,out.params['md'].value,out.params['ad'].value,out.params['bd'].value,out.params['mh'].value,out.params['ah'].value)#Rotation curve for our best fit
-vrmodel_mcmc_b=10*np.sqrt(bulgerot(radiusformodel,mcmc_mod.params['mb'].value,mcmc_mod.params['bb'].value))
-vrmodel_mcmc_d=10*np.sqrt(diskrot(radiusformodel,0.0,mcmc_mod.params['md'].value,mcmc_mod.params['ad'].value,mcmc_mod.params['bd'].value))
-vrmodel_mcmc_h=10*np.sqrt(halorot(radiusformodel,mcmc_mod.params['mh'].value,mcmc_mod.params['ah'].value))
+vrmodel_mcmc_mxl=rotcurve(radiusformodel,mcmc_mxl['mb'].value,mcmc_mxl['bb'].value,mcmc_mxl['md'].value,mcmc_mxl['ad'].value,mcmc_mxl['bd'].value,mcmc_mxl['mh'].value,mcmc_mxl['ah'].value) #Rotation curve for MCMC maximum likelihood
+
+#vrmodel_mcmc_b=10*np.sqrt(bulgerot(radiusformodel,mcmc_mod.params['mb'].value,mcmc_mod.params['bb'].value))
+#vrmodel_mcmc_d=10*np.sqrt(diskrot(radiusformodel,0.0,mcmc_mod.params['md'].value,mcmc_mod.params['ad'].value,mcmc_mod.params['bd'].value))
+#vrmodel_mcmc_h=10*np.sqrt(halorot(radiusformodel,mcmc_mod.params['mh'].value,mcmc_mod.params['ah'].value))
 
 
 ##################################
 vertinitial=vertforce(radiusforvertf,1.1,439,0.236,3096,3.262,0.289,142200,45.02)  #Vertical force for model of Irrgang 2013
-vertmodel_mcmc=vertforce(radiusforvertf,1.1,mcmc_mod.params['mb'].value,mcmc_mod.params['bb'].value,mcmc_mod.params['md'].value,mcmc_mod.params['ad'].value,mcmc_mod.params['bd'].value,mcmc_mod.params['mh'].value,mcmc_mod.params['ah'].value)#Vertical force for our best fit 
+vertmodel_mcmc_mod=vertforce(radiusforvertf,1.1,mcmc_mod['mb'].value,mcmc_mod['bb'].value,mcmc_mod['md'].value,mcmc_mod['ad'].value,mcmc_mod['bd'].value,mcmc_mod['mh'].value,mcmc_mod['ah'].value)#Vertical force for our best fit 
 vertmodel_ampgo=vertforce(radiusforvertf,1.1,out.params['mb'].value,out.params['bb'].value,out.params['md'].value,out.params['ad'].value,out.params['bd'].value,out.params['mh'].value,out.params['ah'].value)#Vertical force for our best fit 
 
-
+vertmodel_mcmc_mxl=vertforce(radiusforvertf,1.1,mcmc_mxl['mb'].value,mcmc_mxl['bb'].value,mcmc_mxl['md'].value,mcmc_mxl['ad'].value,mcmc_mxl['bd'].value,mcmc_mxl['mh'].value,mcmc_mxl['ah'].value)
 
 ###RotCurve:
 plt.figure(0)
 plt.xlabel('log(R) (kpc)')
 plt.ylabel('V$_{circ}$')
 plt.plot(np.log10(radiusformodel), vrinitial, 'k',label="Best Fit (Irrgang 2013)")
-plt.plot(np.log10(radiusformodel), vrmodel_mcmc, 'r', label='Best fit (MCMC)')
-plt.plot(np.log10(radiusformodel), vrmodel_ampgo, 'r--', label='Best fit (AMPGO)')
-plt.plot(np.log10(radiusformodel), vrmodel_mcmc_b, 'k--', label='Bulge',markersize=2)
-plt.plot(np.log10(radiusformodel), vrmodel_mcmc_d, 'k+', label='Disk',markersize=2)
-plt.plot(np.log10(radiusformodel), vrmodel_mcmc_h, 'ko', label='Halo',markersize=2)
+plt.plot(np.log10(radiusformodel), vrmodel_mcmc_mod, 'r^', label='Best fit (MCMC Mode)',markersize=1)
+plt.plot(np.log10(radiusformodel), vrmodel_mcmc_mxl, 'kv', label='Best fit (MCMC MXL)',markersize=1)
+plt.plot(np.log10(radiusformodel), vrmodel_ampgo, 'r--', label='Best fit (AMPGO)',markersize=1)
+#plt.plot(np.log10(radiusformodel), vrmodel_mcmc_b, 'k--', label='Bulge',markersize=2)
+#plt.plot(np.log10(radiusformodel), vrmodel_mcmc_d, 'k+', label='Disk',markersize=2)
+#plt.plot(np.log10(radiusformodel), vrmodel_mcmc_h, 'ko', label='Halo',markersize=2)
 plt.errorbar(np.log10(radius2), vel2, yerr=(poser2,neger2),fmt='.', label='Eilers (2019)')
 plt.errorbar(np.log10(radius3), vel3, yerr=(poser3,neger3),fmt='+', label='Bhattacharjee (2014)')
 plt.errorbar(np.log10(radius1), vel1, yerr=(poser1,neger1),fmt='x', label=name)
@@ -614,7 +635,8 @@ plt.figure(1)
 plt.xlabel('R (kpc)')
 plt.ylabel('V$_{circ}$')
 plt.plot(radiusformodel[50:], vrinitial[50:], 'k',label="Best Fit (Irrgang 2013)")
-plt.plot(radiusformodel[50:], vrmodel_mcmc[50:], 'r', label='Best fit (MCMC)')
+plt.plot(radiusformodel[50:], vrmodel_mcmc_mod[50:], 'r^', label='Best fit (MCMC Mode)',markersize=1)
+plt.plot(radiusformodel[50:], vrmodel_mcmc_mxl[50:], 'kv', label='Best fit (MCMC MXL)',markersize=1)
 plt.plot(radiusformodel[50:], vrmodel_ampgo[50:], 'r--', label='Best fit (AMPGO)')
 plt.errorbar(radius2, vel2, yerr=(poser2,neger2),fmt='.', label='Eilers (2019)')
 plt.errorbar(radius3, vel3, yerr=(poser3,neger3),fmt='+', label='Bhattacharjee (2014)')
@@ -643,7 +665,8 @@ plt.figure(4)
 plt.xlabel('R (kpc)')
 plt.ylabel('F$_{v}$')
 plt.plot(radiusforvertf, vertinitial, 'k',label="Best Fit (Irrgang et.al. 2013)")
-plt.plot(radiusforvertf, vertmodel_mcmc, 'r', label='Best fit (MCMC)')
+plt.plot(radiusforvertf, vertmodel_mcmc_mod, 'r^', label='Best fit (MCMC Mode)')
+plt.plot(radiusforvertf, vertmodel_mcmc_mxl, 'kv', label='Best fit (MCMC Mxl)')
 plt.plot(radiusforvertf, vertmodel_ampgo, 'r--', label='Best fit (AMPGO)')
 plt.errorbar(radius4,vertif,yerr=(erforce/2,erforce/2),fmt= '+', label='Bovy et. al.')
 plt.legend()
@@ -657,7 +680,7 @@ plt.savefig("Plots/%s/Acceptance_%s_%s.pdf"%(name,steps,walkers))
 ###########
 ########################
 plt.figure(6)
-emcee_corner = corner.corner(out3.flatchain, labels=out3.var_names,truths=list(out3.params.valuesdict().values()))
+emcee_corner = corner.corner(out3.flatchain, labels=out3.var_names,truths=list(out3.params.valuesdict().values()),quantiles=[0.16,0.5,0.84])
 emcee_corner.savefig("Plots/%s/emcee_corner_%s_%s.pdf"%(name,steps,walkers))
 
 

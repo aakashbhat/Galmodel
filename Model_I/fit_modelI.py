@@ -385,7 +385,7 @@ def halovert(R,z,Mh,ah,lam):
 #########################
 #Read Data from files:
 ########################
-Inner=3 #1 is for Reid 2014, 2 for Sofue 2021, 3 is for Sofue 2009
+Inner=1 #1 is for Reid 2014, 2 for Sofue 2021, 3 is for Sofue 2009
 
 data1 = ascii.read("data/rotcurv_eilers.ascii")
 data2 = ascii.read("data/rotcurv_bhatta_25kpc.ascii")
@@ -560,7 +560,7 @@ for ix, name2 in enumerate(out3.params.copy()):
     file.write(f"\n 2 sigma spread = {0.5 * (quantiles[4] - quantiles[0]):.3f}")
     file.write(f"\n\n1 sigma spread = {0.5 * (quantiles[3] - quantiles[1]):.3f}")
     mcmc_mxl[name2].value=mle_soln[ix]
-    data.append({'Parameter': name, 'ampgo': out.params[name2].value,'mcmc_mxl': mcmc_mxl[name2].value,'mcmc_mxl_2sigma_plus': quantiles[4], 'mcmc_mxl_2sigma_minus':  quantiles[0],'mcmc_mode': mcmc_mod[name2].value,'mcmc_mode_hdi_plus':(mode["HDI_hi"]-mode["mode"]),'mcmc_mode_hdi_minus': (mode["HDI_lo"]-mode["mode"])})
+    data.append({'Parameter': name2, 'ampgo': out.params[name2].value,'mcmc_mxl': mcmc_mxl[name2].value,'mcmc_mxl_2sigma_plus': quantiles[4], 'mcmc_mxl_2sigma_minus':  quantiles[0],'mcmc_mode': mcmc_mod[name2].value,'mcmc_mode_hdi_plus':(mode["HDI_hi"]-mode["mode"]),'mcmc_mode_hdi_minus': (mode["HDI_lo"]-mode["mode"])})
 
 
 ###################################

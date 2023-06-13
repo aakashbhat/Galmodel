@@ -1,0 +1,122 @@
+[[Fit Statistics]]
+    # fitting method   = ampgo, with L-BFGS-B as local solver
+    # function evals   = 15928
+    # data points      = 151
+    # variables        = 7
+    chi-square         = 12.6251704
+    reduced chi-square = 0.08767479
+    Akaike info crit   = -360.719692
+    Bayesian info crit = -339.598734
+##  Warning: uncertainties could not be estimated:
+[[Variables]]
+    mb:  2664.49231 +/- 397.739587 (14.93%) (init = 439)
+    bb:  2.99208551 +/- 0.20247515 (6.77%) (init = 0.236)
+    md:  3868.35757 +/- 210.119630 (5.43%) (init = 3096)
+    ad:  7.17895356 +/- 0.86090965 (11.99%) (init = 3.262)
+    bd:  0.48052477 +/- 0.03980316 (8.28%) (init = 0.289)
+    mh:  141589.876 +/-        nan (nan%) (init = 142200)
+    ah:  84.9536742 +/- 5.28450395 (6.22%) (init = 45.02)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mb, ad) = 0.952
+    C(mb, bb) = 0.914
+    C(ad, ah) = 0.901
+    C(mb, ah) = 0.855
+    C(bb, ad) = 0.777
+    C(bb, ah) = 0.725
+    C(md, bd) = 0.624
+    C(bb, bd) = -0.557
+    C(mb, bd) = -0.512
+    C(md, ah) = 0.413
+    C(ad, bd) = -0.369
+    C(bb, md) = -0.252
+    C(md, ad) = 0.197
+    C(bd, ah) = -0.141[[Fit Statistics]]
+    # fitting method   = emcee
+    # function evals   = 1000000
+    # data points      = 151
+    # variables        = 7
+    chi-square         = 14.9745280
+    reduced chi-square = 0.10398978
+    Akaike info crit   = -334.950311
+    Bayesian info crit = -313.829353
+[[Variables]]
+    mb:  3483.06323 +/- 1365.51599 (39.20%) (init = 2664.492)
+    bb:  3.39402335 +/- 0.64578565 (19.03%) (init = 2.992086)
+    md:  4810.29616 +/- 1368.54819 (28.45%) (init = 3868.358)
+    ad:  9.53732185 +/- 4.52184640 (47.41%) (init = 7.178954)
+    bd:  0.51703158 +/- 0.16910993 (32.71%) (init = 0.4805248)
+    mh:  184673.187 +/- 158009.013 (85.56%) (init = 141589.9)
+    ah:  135.462065 +/- 57.9604340 (42.79%) (init = 84.95367)
+[[Correlations]] (unreported correlations are < 0.100)
+    C(mb, ad) = 0.905
+    C(mb, bb) = 0.811
+    C(mh, ah) = 0.719
+    C(md, ad) = 0.719
+    C(bb, ad) = 0.647
+    C(mb, md) = 0.453
+    C(bb, bd) = -0.432
+    C(mb, bd) = -0.415
+    C(mb, ah) = 0.380
+    C(ad, bd) = -0.317
+    C(md, mh) = -0.299
+    C(bb, ah) = 0.293
+    C(ad, ah) = 0.287
+    C(ad, mh) = -0.234
+    C(bb, md) = 0.222
+    C(md, ah) = 0.210
+    C(md, bd) = 0.205
+    C(mb, mh) = -0.125
+  mb      -3047.9642 -1621.4413 3483.0632 1110.2302 1692.2492
+4263.4850 1716.8889 756.9092
+
+mb: 558.710
+
+ 2 sigma spread = 2370.107
+
+1 sigma spread = 1365.836  bb       -2.4314  -0.7830   3.3940   0.5089   0.8952
+  3.5851   0.7250   0.4691
+
+bb: 1.306
+
+ 2 sigma spread = 1.663
+
+1 sigma spread = 0.646  md      -1810.2056 -1022.2471 4810.2962 1715.5012 3999.7938
+4522.1792 1097.5973 1343.1444
+
+md: 4107.223
+
+ 2 sigma spread = 2905.000
+
+1 sigma spread = 1368.874  ad       -5.6744  -3.7315   9.5373   5.3144   9.2707
+  7.0029   2.9379   5.4468
+
+ad: 4.483
+
+ 2 sigma spread = 7.473
+
+1 sigma spread = 4.523  bd       -0.2241  -0.1309   0.5170   0.2074   0.5302
+  0.4457   0.1116   0.1954
+
+bd: 0.529
+
+ 2 sigma spread = 0.377
+
+1 sigma spread = 0.169  mh      -167542.2656 -123970.8986 184673.1868 192108.4016 396153.0464
+34468.5762 24603.4589 238640.2943
+
+mh: 20528.970
+
+ 2 sigma spread = 281847.656
+
+1 sigma spread = 158039.650  ah      -112.4206 -69.1980 135.4621  46.7341  61.6638
+191.6853  88.9590   8.3070
+
+ah: 18.663
+
+ 2 sigma spread = 87.042
+
+1 sigma spread = 57.966
+ solar density MCMC mode: [[0.11944734]]
+ solar density MCMC mxl:  [[0.09306746]]
+ solar halo density mode: [[0.0002099]]
+ solar halo density mxl: [[0.00693128]]
