@@ -229,7 +229,7 @@ We use the Lmfit module \citep{newville_matthew_2014_11813} to fit the curves. T
     \text{Residual}= \frac{1}{\sqrt{N_j}}\frac{(Data-Model)}{\sigma}
 \end{equation}
 The sum of squares is then used to calculate the weighted chi-square by the lmfit module.
-We use the Ampgo solver to get the best-fit. The initial values for the fit are taken from \citet{andreassmass}. Since the parameters are highly correlated the uncertainties are then estimated using an MCMC procedure which evaluates the function $10^6$ times using the final values of the apmgo solver as the initial point. Due to the high correlations, we report the uncertainties along with the mode of the MCMC procedure, which is the value for the maximum likehood, and aligns with the values found by the ampgo solver. To avoid sampling in non-physical regions, we provide maximum values for scale heights of the bulge, disk, and halo components. The mode of the MCMC distribution is reported along with the high and low density intervals, which are calculated after fitting the distribution of the mcmc.
+We use the Ampgo solver to get the best-fit. The initial values for the fit are taken from \citet{andreassmass}. Since the parameters are highly correlated the uncertainties are then estimated using an MCMC procedure which evaluates the function $10^6$ times (100 walkers with 10000 steps each) using the final values of the apmgo solver as the initial point. Due to the high correlations, we report the uncertainties along with the mode of the MCMC posterior distributions. To avoid sampling in non-physical regions, we provide maximum values for scale heights of the bulge, disk, and halo components, and burn 1000 samples, which is roughly twice the auto-correlation time. We also check for the median acceptance rate to be above 0.2. The mode of the MCMC distribution is reported along with the high and low density intervals, which are calculated after fitting the posterior distributions individually.
 \section{Results}
 
 \subsection{Model I: Allen Santillan}
@@ -243,66 +243,36 @@ Model I has Bulge and disk from Miyamoto and Nagai and dark matter halo is taken
  For the halo, the masses are predicted to be close to the initial value and similar for all three. However, all three curves predict a much bigger scale length $a_h$, close to the maximum allowed value of 20 kpc. Similarly, a much smaller $\Lambda$ is preferred, which however cannot directly be compared with \citetads{andreassmass} where it was not allowed to vary. The fits to the rotation curves and the vertical forces are given in \ref{fig:Model1_rc} and \ref{fig:Model1_vertif}
 
 
- \pgfplotstableread[col sep=comma]{Model_I/output_params/fit_Sofue(2021)_10000_100_params.csv}\tableaf
-\begin{table*}[ht]
+ \pgfplotstableread[col sep=comma]{Model_I/output_params/fit_all_10000_100_params.csv}\tableaf
+\begin{table*}
 \centering
-\caption{Fitted parameters values for Model I. Values given are the Mode and HDI of the posterior parameter distributions. }\label{tab:model1params} 
+\caption{Fitted parameters values for Model I.}
+\label{tab:model1params} 
 \renewcommand{\arraystretch}{1.1}
 \resizebox{0.9\textwidth}{!}{
 \pgfplotstabletypeset[
-columns={Parameter,ampgo,mcmc_mxl,mcmc_mode},
+columns={Parameter,ampgo_1,mcmc_mxl_1,mcmc_mode_1,ampgo_2,mcmc_mxl_2,mcmc_mode_2,ampgo_3,mcmc_mxl_3,mcmc_mode_3},
 column type=c,
 string type,
-every head row/.style={before row=\hline\hline,after row=\hline,},
+every head row/.style={before row={\hline\hline&\multicolumn{3}{c}{RC1}&\multicolumn{3}{c}{RC2}&\multicolumn{3}{c}{RC3}\\},after row=\hline,},
 every last row/.append style={after row={\hline} },
 every first column/.style={column type/.add={}{}},
 every last column/.style={column type/.add={}{}},
 columns/Parameter/.style={column name=Name,string replace*={_}{\textunderscore}},
-columns/ampgo/.style={column name=$\varpi$,column type=c,numeric type,fixed,precision=2},
-columns/mcmc_mxl/.style={column name=$e_\varpi$,column type=c,numeric type,fixed,precision=3},
-columns/mcmc_mode/.style={column name=$\mu_{\alpha*}$,column type=c,numeric type,fixed,precision=2},
-%columns/e_pmRA/.style={column name=e$\mu_{\alpha*}$,column type=c,numeric type,fixed,precision=2},
-%columns/pmDE/.style={column name=$\mu_{\delta}$,column type=c,numeric type,fixed,precision=2},
-%columns/e_pmDE/.style={column name=e$\mu_{\delta}$,column type=c,numeric type,fixed,precision=2},
-%columns/RV/.style={column name=RV,column type=c,numeric type,fixed,precision=2},
-%columns/s_RV/.style={column name=eRV,column type=c,numeric type,fixed,precision=2},
-%columns/N/.style={column name=N$_\text{PM}$,column type=c,numeric type,fixed},
-%columns/NStars/.style={column name=N$_\text{RV}$,column type=c,numeric type,fixed,precision=2},
-%columns/SD/.style={column name=Standard Deviation,numeric type,fixed,precision=2},
-%columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
-%columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
+columns/ampgo_1/.style={column name=Ampgo,column type=c,numeric type,fixed,precision=2},
+columns/mcmc_mxl_1/.style={column name=MCMC MXL,column type=c,numeric type,fixed,precision=2},
+columns/mcmc_mode_1/.style={column name=MCMC Mode,column type=c,numeric type,fixed,precision=2},
+columns/ampgo_2/.style={column name=Ampgo,column type=c,numeric type,fixed,precision=2},
+columns/mcmc_mxl_2/.style={column name=MCMC MXL,column type=c,numeric type,fixed,precision=2},
+columns/mcmc_mode_2/.style={column name=MCMC Mode,column type=c,numeric type,fixed,precision=2},
+columns/ampgo_3/.style={column name=Ampgo,column type=c,numeric type,fixed,precision=2},
+columns/mcmc_mxl_3/.style={column name=MCMC MXL,column type=c,numeric type,fixed,precision=2},
+columns/mcmc_mode_3/.style={column name=MCMC Mode,column type=c,numeric type,fixed,precision=2},
 ]{\tableaf}
 }
-\tablefoot{}
+\tablefoot{I}
 \end{table*}
 
-\begin{table*}
-\begin{center}
-\caption{Fitted parameters values for Model I. Values given are the Mode and HDI of the posterior parameter distributions. }\label{tab:model1params} 
-%\scriptsize
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{c c c c c } 
-\hline
-\hline
-&\multicolumn{4}{c}{Model I} \\
-\hline
-Parameter&Old&RC1&RC2&RC3\\
-\hline
-$M_b$&$409^{+63}_{-63}$&$403^{+42}_{-47} (399^{+42}_{-48})$&$3878^{+974}_{-2032} (3062.23^{1330.83}_{-1802.86})$&$3929^{+784}_{-1178} (3533^{+837}_{-1333})$\\
-$b_b$&$0.23^{0.03}_{-0.03}$&$0.224^{+0.021}_{-0.026} (0.222^{0.023}_{-0.023})$&$3.56^{+0.54}_{-0.92} (3.28^{+0.58}_{-1.02})$&$3.42^{+0.37}_{-0.65} (3.20^{+0.43}_{-0.67})$\\
-$M_d$&$2856^{+376}_{-202}$&$3948^{+829}_{-486} (4168^{+699}_{-622})$&$4144^{+2674}_{6157} (4710^{+2518}_{-1402})$&$3592^{+3382}_{-994} (5195^{+2930}_{-1887})$\\
-$a_d$&$4.22^{+0.53}_{-0.99}$&$4.368^{+0.297}_{-0.324} (4.394^{+0.399}_{-0.266})$&$4.16^{+7.99}_{-1.08} (8.72^{+6.63}_{-4.15})$&$10.14^{+5.66}_{-3.78} (11.20^{+4.90}_{-4.56})$\\
-$b_d$&$0.292^{+0.020}_{-0.025}$&$0.533^{+0.190}_{-0.133} (0.590^{+0.219}_{-0.137})$&$0.897^{+0.574}_{-0.713} (0.973^{+0.694}_{-0.621})$&$0.613^{+0.733}_{-0.532} (0.928^{+0.746}_{-0.604})$\\
-$M_h$&$1018^{+27933}_{-605}$&$805^{+6240}_{-738} (3209^{+11937}_{-2338})$&$1440^{+2066}_{-2066} (2372^{+2525}_{-1564})$&$1135^{+1887}_{-1056} (1977^{+2164}_{-1303})$\\
-$a_h$&$2.562^{25.963}_{-1.419}$&$2.843^{+14.763}_{-2.562} (9.469^{+21.086}_{-6.500})$&$19.09^{+0.90}_{-8.33} (13.86^{+4.39}_{-6.46})$&$19.088^{+0.912}_{-8.067} (13.569^{+4.643}_{-6.596})$\\
-$\Lambda$&$200^{+0}_{-83}$&$56.827^{+89.271}_{-26.591} (105.443^{+63.386}_{-55.466})$&$68.59^{+97.55}_{-21.42} (110.83^{61.53}_{-57.56})$&$(109.92^{+62.09}_{-59.52})$\\
-\hline
-$\chi^2_{\text{Reduced}}$&&0.112 &0.074& 0.25 \\
-\hline
-$\rho_\odot$&0.1&0.092&&\\
-\end{tabular}
-\end{center}
-\end{table*}
 
 \begin{figure}
 \includegraphics[width=\columnwidth]{Model_I/Plots/Sofue(2009)/Rotcur_ModelI_eil_bhatta_log_10000_100.pdf}
