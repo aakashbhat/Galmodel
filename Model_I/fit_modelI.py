@@ -503,8 +503,8 @@ def residual(params, x1,x2, vel, uncertainty1,vertif,erforce):
 ###################################################
 ###Fitting Procedure:
 np.random.seed(1)
-steps=10000
-walkers=100
+steps=1000
+walkers=20
 params = Parameters()
 params.add('mb', value=409,min=0) #Initial values for Params from Irrgang 2013
 params.add('bb', value=0.23,min=0,max=5)
@@ -517,10 +517,13 @@ params.add('lam', value=100,min=0,max=200)
 
 mini = lmfit.Minimizer(residual, params,(radius,radius4,vel, (poser+neger)/2,vertif,erforce), nan_policy='omit') #The first minimizer which uses ampgo followed by the second one
 out=mini.minimize(method="ampgo",params=params)
-out3=mini.minimize(method="emcee",params=out.params,steps=steps,burn=1000,nwalkers=walkers,is_weighted=True)
+out3=mini.minimize(method="emcee",params=out.params,steps=steps,burn=100,nwalkers=walkers,is_weighted=True)
 print(fit_report(out))
 print(fit_report(out3))
-
+flatchain = out3.flatchain
+np.save('flatchain.npy', flatchain)
+np.savetxt('flatchain.csv', flatchain, delimiter=',')
+'''
 #########################################################
 file=open('fitreports/fitreports_final/fitreport_model1_%s_%s_%s.dat'%(name,steps,walkers),'w')
 file.write(fit_report(out))
@@ -561,7 +564,7 @@ for ix, name2 in enumerate(out3.params.copy()):
     file.write(f"\n\n1 sigma spread = {0.5 * (quantiles[3] - quantiles[1]):.3f}")
     mcmc_mxl[name2].value=mle_soln[ix]
     data.append({'Parameter': name2, 'ampgo': out.params[name2].value,'mcmc_mxl': mcmc_mxl[name2].value,'mcmc_mxl_2sigma_plus': quantiles[4], 'mcmc_mxl_2sigma_minus':  quantiles[0],'mcmc_mode': mcmc_mod[name2].value,'mcmc_mode_hdi_plus':(mode["HDI_hi"]-mode["mode"]),'mcmc_mode_hdi_minus': (mode["HDI_lo"]-mode["mode"])})
-
+    
 
 ###################################
 density_solar_mcmc_mode=density(8.178,0,mcmc_mod['mb'].value,mcmc_mod['bb'].value,mcmc_mod['md'].value,mcmc_mod['ad'].value,mcmc_mod['bd'].value,mcmc_mod['mh'].value,mcmc_mod['ah'].value,mcmc_mod['lam'].value)
@@ -679,7 +682,7 @@ emcee_corner.savefig("Plots/%s/emcee_corner_%s_%s.pdf"%(name,steps,walkers))
 
 
 
-
+'''
 
 
 

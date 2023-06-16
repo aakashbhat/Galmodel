@@ -4,12 +4,12 @@ from functions import Oort,halo_NFW_mass,bulge_mass, disk_mass,halo_as_mass,grf_
 from matplotlib.colors import BoundaryNorm
 from matplotlib.ticker import MaxNLocator
 from typing import NamedTuple
-x=np.linspace(-2,2,100)
+x=np.linspace(0,100,100)
 y=np.linspace(-10,10,100)
-z=np.linspace(-20,20,100)
+z=np.linspace(0,100,100)
 
-to_plot="Oort"
-model=3
+to_plot="vescape"
+model=1
 class params(NamedTuple):
     mb: float
     bb: float
@@ -29,19 +29,18 @@ elif model==3:
 
 if to_plot=="vescape":
 
-    vesc_model=vescape(x,0,model)
-    print(vesc_model)
-    '''
+    vesc=vescape(x,z,model)    
     ###For Plotting differences:
-    vesc_model1new=vescape(x,y,0,1,304,0.215,3968,4.129,1.043,1252,2.95,67.90)
+    vesc_new=vescape(x,z,1,395,0.19,3445,5.11,0.44,510,1.75,53.41)
 
     fig,ax=plt.subplots()
-    im=ax.pcolormesh(x,y,np.abs(np.array(vesc_model1)-np.array(vesc_model1new)))
-    plt.colorbar(im)
-    plt.xlabel("X (kpc)")
-    plt.ylabel("Y (kpc)")
-    plt.savefig("Plots/Escape_velocity/abs_difference_model1newRC1_model1.pdf")
-    '''
+    im=ax.pcolormesh(x,z,(np.array(vesc)-np.array(vesc_new)))
+    cbr=plt.colorbar(im,fraction=0.1)
+    plt.xlabel("R (kpc)")
+    plt.ylabel("Z (kpc)")
+    cbr.set_label(r'Vesc(km$s^{-1}$)')
+    plt.savefig("Plots/Escape_velocity/%skpc_difference_model%s_old_new.pdf"%(int(np.max(x)),model))
+
 elif to_plot=="density":
     if model==1:
         diskden=disk_density(x,y,z)
@@ -102,3 +101,5 @@ elif to_plot=="Oort":
     A,B=Oort(8.33,model,model_params.mb,model_params.bb,model_params.md,model_params.ad,model_params.bd,model_params.mh,model_params.ah)
     
     print(A,B)
+
+    
